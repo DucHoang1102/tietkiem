@@ -1,0 +1,75 @@
+BỘ KHUNG QUY TRÌNH PHÁT TRIỂN PHẦN MỀM - NẾU BẠN KHÔNG ĐIỀN ĐƯỢC ĐẦY ĐỦ VÀO KHUNG THÌ ĐỪNG VIẾT CODE (sẽ bổ sung sau)
+
+*, DEMO	chương trình:
+(DEMO giao diện - Tổng hợp chức năng - giải thích chương trình - cách thực hiện chương trình - Các lưu ý cần thiết)
+
+*** Chương trình quản lý chi tiêu cá nhân theo ngày ***
+A. Giao diện gồm 3 phần: 
+
+  + Phần 1 hiển thị tông: 
+  	- Hôm nay: Luôn luôn hiển thị tổng tiền chi tiêu trong hôm nay. Lấy từ database
+  	- Tháng này: Hiển thị tổng chi tiêu theo tháng, tuần, ngày to ngày (Theo cách người dùng chọn). Tổng hợp và cộng dữ
+  	liệu từ database
+
+  + Phần 2 hiển thị thời gian (ngày) và chi tiêu trong ngày (item):
+  	- Hiển thị ngày và item chi tiêu trong ngày(thụt vào), cuối item luôn luôn là item tổng.
+  	- item tổng là mặc định kể cả không có các item khác. Lúc này hiển thị "0k -> Tổng". Còn nếu có các item khác thì 
+  	số tiền là tổng của các số tiền chi tiêu trong ngày.
+  	- Phần này hiển thị các ngày theo danh sách mà người dùng muốn chọn: Tất cả, tuần này, tháng này, từ ngày đến ngày
+  	(phần 3 chức năng sẽ mô tả)
+  	- Edit - Đi kèm mỗi ngày là một nút sửa, dùng cho trường hợp người dùng muốn sửa chi tiêu ngày nào đó trong quá khứ
+
+  + Phần 3 chức năng:
+  	- Phần này chứa giao diện thực hiện 2 chức năng: 
+  	  + View(chọn cách hiển thị ngày): Người dùng được chọn hiển thị theo: Tất cả, tuần này, tháng này, từ ngày đến ngày
+  	  + Add(Thêm chi tiêu): Lưu ý phần này thêm chi tiêu mặc định cho "ngày hôm nay" và chỉ thêm cho "ngày hôm nay".
+  	  + Còn nếu người dùng muốn bổ sung cho các ngày trong quá khứ thì bấm nút sửa cho ngày cụ thể
+  	  + Lưu ý sẽ không được thêm dữ liệu cho các ngày tương lai (Những ngày sau ngày hôm nay).
+
+B. Tổng hợp tất cả chức năng:
+	- Add - thêm chi tiêu cho ngày hôm nay
+	- Edit - Sửa chi tiêu cho các ngày cụ thể: Thêm, sửa, xóa chi tiêu,...
+	- View - Chọn cách hiển thị dữ liệu theo ngày: tất cả, tuần này, tháng này, từ ngày đến ngày. Chú ý khi kích hoạt 
+	chức năng này, ngày hôm nay vẫn theo mặc định (Cả hiển thị, và thêm chi tiêu - mặc định vẫn là ngày hôm nay)
+
+C. Cách thức hiển thị chương trình:
+	- Ngày mới được thêm vào cơ sở dữ liệu tự động khi người dùng truy cập lần đầu tiên trong ngày mới (ngày chưa có
+	trong cơ sở dữ liệu). Tổng ban đầu là 0 (bảng ngày trong database có một trường lưu luôn tổng của ngày đó - sẽ nhanh
+	hơn khi hiển thị tổng vì không phải thực hiện chức năng cộng).
+	- Mỗi khi thêm chi tiêu thì tổng(trong database) của ngày sẽ thay đổi. Thêm, sửa, xóa cũng vậy (đối với những ngày
+	trong quá khứ).
+
+D. Các lưu ý cần thiết của chương trình:
+	- Hôm nay là mặc định của chức năng add - thêm chi tiêu. Luôn luôn là mặc định.
+	- Hôm nay (phần hiển thị tổng trên cùng) - Luôn luôn hiển thị tổng chi tiêu của người dùng trong ngày hôm nay. Bất 
+	kể người dùng chọn View theo cách nào thì nó vẫn không nay đổi. Vẫn là chi tiêu trong ngày hôm nay
+	- Ngày mới luôn luôn được thêm tự động vào cơ sở dữ liệu khi người dùng truy cập chương trình. Thêm vào với tổng là 0,
+	nếu khi người dùng ghi chi tiêu thì tổng này sẽ được cộng.
+	- Chữ "hôm nay" sẽ thay thế cách hiển thị ngày thong thường (1/1/2017)
+
+
+*, Các lỗi trong chương trình:
+(Lỗi cần hiển thị, lỗi bắt buộc phải ẩn  không được hiển thị cho người dùng thấy, lỗi che giấu)
+A. Lỗi cần hiển thị:
+	- Lỗi load dữ liệu trong database, Người dùng chọn View nhưng không load được, cũng như không có dữ liệu theo truy 
+	vấn của người dùng.
+		=> Cách xử lý: Hiển thị text vào phần hiển thị dữ liệu (đãng nhẽ nếu có dữ liệu phần này sẽ hiển thị ngày và
+		các item chi tiêu). Nội Dung: "Không có dữ liệu để hiển thị" (bold - italic)
+
+	- Những ngày không có chi tiêu nào (Dữ liệu item chi tiêu trống).
+		=> Cách xử lý: Hiển thị item tổng 0k. Nội dung "0k -> Tổng"
+
+B. Lỗi bắt buộc phải ẩn không được hiển thị cho người dùng thấy:
+	- Lỗi database: ko tìm thấy database (đổi tên nhưng quên ko sửa), ko tìm thấy bàng,.. -> lỗi này chương trình mặc 
+	định của mysql sẽ in lỗi ra trình duyệt. Nếu người dùng đọc được thì rất không tốt cho vấn đề bảo mật
+C. Lỗi che giấu(chưa biết)
+
+*, Cấu trúc project:
+(Cấu trúc thư mục, kiểu kiến trúc, partem)
+
+*, Database:
+(Sử dụng database nào -> Cấu trúc database)
+
+*, Demo viết code
+(Demo các hàm, class, obj,..., cách đặt tên, tên biến, cách chúng làm việc và phối hợp với nhau -> 
+phân tích hiệu suất chương trình tại bước này)

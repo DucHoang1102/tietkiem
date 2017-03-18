@@ -1,0 +1,287 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	 -webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+}
+body{
+	font-family: arial;
+}
+
+#contains{
+	position: relative;
+	width: 390px;
+	height: auto;
+	margin: 20px auto;
+}
+
+
+/**View total money**/
+#view-total-money{
+	position: relative;
+	width: 100%; height: 80px;
+	border-radius: 5px;
+	background-color: #e6e6ff;
+}
+.cash-money, .card-money{
+	position: absolute;
+	padding: 3px;
+	width: 185px; height: 25px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	border-radius: 5px 5px 0px 0px;
+	background-color: #668eff;
+}
+.cash-money{
+	left: 0px;
+}
+.card-money{
+	right: 0px;
+}
+.cash-money-number, .card-money-number{
+	position: absolute;
+	overflow: hidden;
+	top: 25px;
+	width: 185px;height: 55px;
+	padding: 8px 5px;
+	font-size: 25px; font-weight: bold;
+	text-align: center;
+	border-radius: 0px 0px 5px 5px;
+	background-color: #80b3ff;
+}
+.cash-money-number{
+	left: 0px;
+}
+.card-money-number{
+	right: 0px;
+}
+
+/**History deal**/
+#history-deal{
+	overflow: auto;
+	margin-top: 5px;
+	padding: 10px;
+	width: 100%; height: 470px;
+	background-color: #f2f2f2;
+}
+
+#history-deal .items{
+	margin-bottom: 15px;
+}
+.items div{
+	border-left: 2px solid black;
+	margin-bottom: -5px;
+	margin-left: 10px;
+}
+.items .date-time{
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1.2em;
+}
+.item-edit img{
+	width: 17px;
+	opacity: 0.5;
+}
+.item-edit img:hover{
+	opacity: 1;
+}
+.items .money-number{
+	display: inline-block;
+	padding-left: 10px;
+	width: 65px;
+	font-weight: bold;
+}
+.items .money-content{
+	font-style: italic;
+}
+.items div{
+	margin-top: 5px;
+}
+
+.items .money-total .money-number{
+	color: #cc0000;
+}
+.items .money-total .money-content{
+	font-weight: bold;
+}
+
+/*Functions - footer*/
+#functions{
+	position: relative;
+	margin-top: 5px;
+	width: 100%;height: 40px;
+	background-color: #d9d9d9;
+}
+#functions img{
+	position: absolute;
+	width: 28px;
+}
+#functions .item-add img{
+	top: 7px; right: 10px;
+}
+#functions .view-select img{
+	top: 7px; left: 10px;
+}
+#functions .item-add img:hover,
+#functions .view-select img:hover{
+	width: 30px;
+}
+
+
+/*Box setting*/
+#box-setting{
+	display: none;
+	position: absolute;
+	bottom: 45px; left: 0px;
+	overflow: hidden;
+	width: 100%; height: 230px;
+	background-color: #e6e6ff;
+}
+#box-title{
+	display: inline-block;
+	width: 100%; height: 30px; 
+	line-height: 30px;
+	font-size: 1.2em; font-weight: bold; color: white;
+	text-align: center;
+	background-color: #668eff;
+}
+
+.warning{
+	display: inline-block;
+	font-style: italic;
+	padding: 1px 5px;
+}
+.warning img{
+	width: 20px;
+}
+#box-setting .warning{
+	display: none;
+	position: absolute;
+	top: 40px; left: 120px;
+}
+#box-setting select{
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	font-size: 1.2em;
+	background-color: #e6e6ff;
+}
+#input-items{
+	position: absolute;
+	overflow: auto;
+	top: 75px; left: 10px;
+	width: 97%; height: 107px;
+	padding: 5px 0px;
+}
+
+#input-items .input-item{
+	margin-bottom: 5px;
+}
+.input-item input{
+	font-size: 15px;
+}
+.input-item input[name=input-money]{
+	width: 60px;
+}
+.input-item input[name=input-content]{
+	width: 215px;
+	
+}
+.input-item img{
+	width: 17px;
+	vertical-align: middle;
+}
+.input-item img[alt=close]{
+	opacity: 0.3;
+}
+.input-item img[alt=close]:hover{
+	opacity: 1;
+}
+#box-setting .add-input-item{
+	position: absolute;
+	top: 192px; left: 5px;
+	width: 25px;
+}
+#box-setting .add-input-item:hover{
+	width: 27px;
+}
+
+#black-background{
+	position: absolute;
+	top: 0px; left: 0px;
+	border: 1px solid black;
+	width: 100%; height: 100%;
+	background: black;
+	opacity: 0.5;
+}
+input[name="huy"], input[name="ok"]{
+	position: relative;
+	top: 160px; left: 180px;
+	width: 90px; height: 30px;
+	font-weight: bold;
+	font-size: 16px;
+}
+input[name="huy"]:hover, input[name="ok"]:hover{
+	border: 0px solid white;
+	background-color: #668eff;
+}
+
+/*box-date-select*/
+#box-view{
+	display: none;
+	position: absolute;
+	overflow: hidden;
+	bottom: 45px;
+	width: 100%;
+	height: 190px;
+	background: #e6e6ff;
+}
+#box-view .title{
+	display: inline-block;
+	width: 100%; height: 25px;
+	color: white; font-size: 1.1em; 
+	line-height: 25px; text-align: center;
+	background: #668eff;
+}
+#box-view .s-view{
+	position: relative;
+	top: 20px; left: 10px;
+}
+#box-view .s-view span{
+	margin-right: 40px;
+	font-weight: bold;
+}
+#box-view .s-d-view{
+	position: relative;
+	top: 50px; left: 10px;
+}
+#box-view .s-d-view span{
+	display: block;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+#box-view .tu-ngay,#box-view .den-ngay{
+	position: absolute;
+}
+#box-view .s-d-view .den-ngay{
+	left: 220px;
+	top: 0px;
+}
+#box-view .s-d-view img{
+	position: absolute;
+	left: 170px; top: 25px;
+}
+#box-view .huy, #box-view .ok{
+	position: relative;
+	top: 115px; left: 208px;
+	width: 80px; height: 25px;
+	font-weight: bold;
+	font-size: 14px;
+	border: 1px solid black;
+}
+#box-view .huy:hover, #box-view .ok:hover{
+	border: 0px solid white;
+	background-color: #668eff;
+}
