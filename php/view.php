@@ -1,7 +1,7 @@
 <?php
 function connnect_database() {
 		//Kết nối database tietkiem
-		$conn = new mysqli('localhost', 'root', '', 'tietkiem');
+		$conn = new mysqli('localhost', 'root', '', 'tietkiem2');
 		if($conn->connect_error){
 			die('Kết nối database bị lỗi');
 		}	
@@ -18,10 +18,11 @@ function view($view_by) {
 		// Nếu là ngày hôm nay thay giá tri ngày bằng giá trị "Hôm nay"
 		// Nếu có giá trị  hôm nay, lưu tổng tiền vào array $result cho dễ truy
 		// xuất
+		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		$today = date('Y-m-d');
 		if ($date['date_content'] === $today){
 			$date['date_content'] = "Hôm nay";
-			$result['total_money_today'] = '123';
+			$result['total_money_today'] = (INT)$date['all_moneys'];
 		}else{
 			$date['date_content'] = 
 			date('d-m-Y', strtotime($date['date_content']));
@@ -53,7 +54,7 @@ function view($view_by) {
 			";
 		}
 
-		$dates = $conn->query($sql);
+		 $dates = $conn->query($sql);
 
 		if ($dates->num_rows > 0){
 			// Trường hợp có dư liệu trả về

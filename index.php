@@ -17,13 +17,13 @@
 			if(isset($result_view['total_money'])) $total_money = $result_view['total_money'] . 'k';
 			else $total_money = '0k';
 		
-			//echo $result_view['total_money_today'];
-			//if($result_view['total_money_today']) $total_money_today = '100';
-		//	else
+			if(isset($result_view['total_money_today'])) $total_money_today = $result_view['total_money_today'] . 'k';
+			else $total_money_today = 0;
+			
 			echo 
 				"<div id='view-total-money'>
 					<span class='cash-money'>Hôm nay</span>
-					<span class='cash-money-number' title='50000k'>0</span>
+					<span class='cash-money-number' title='50000k'>$total_money_today</span>
 					<span class='card-money'>Tháng này</span>
 					<span class='card-money-number' title='50000k'>$total_money</span>
 				</div>'
