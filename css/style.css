@@ -159,14 +159,14 @@ body{
 #box-setting .warning{
 	display: none;
 	position: absolute;
-	top: 40px; left: 120px;
+	top: 40px; left: 170px;
 }
-#box-setting select{
+#box-setting .data-select{
 	position: absolute;
-	top: 40px;
-	left: 10px;
-	font-size: 1.2em;
-	background-color: #e6e6ff;
+ 	top: 35px; left: 10px;
+	font-size: 20px;
+	background: #e6e6ff;
+	border: 0px solid black;
 }
 #input-items{
 	position: absolute;
@@ -182,10 +182,10 @@ body{
 .input-item input{
 	font-size: 15px;
 }
-.input-item input[name=input-money]{
+.input-item .input-money{
 	width: 60px;
 }
-.input-item input[name=input-content]{
+.input-item .input-content{
 	width: 215px;
 	
 }
@@ -216,14 +216,14 @@ body{
 	background: black;
 	opacity: 0.5;
 }
-input[name="huy"], input[name="ok"]{
+input.huy, input.ok{
 	position: relative;
 	top: 160px; left: 180px;
 	width: 90px; height: 30px;
 	font-weight: bold;
 	font-size: 16px;
 }
-input[name="huy"]:hover, input[name="ok"]:hover{
+input.huy:hover, input.ok:hover{
 	border: 0px solid white;
 	background-color: #668eff;
 }

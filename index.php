@@ -1,5 +1,6 @@
 <?php
 	require ("php/view.php");
+	require ("php/add.php");
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -13,13 +14,36 @@
 <body>
 	<div id="contains">
 		<?php
-			$result_view = view('tatca');
+			// Xác định xem người dùng thực hiện chức năng gì
+			if (isset($_POST['box-view'])){
+				// Nếu người dùng bấm OK hộp thoại chọn kiểu xem:
+				// tất cả, tuần này, tháng này,...
+				if (isset($_POST['view'])) {
+				$view_type = $_POST['view'];
+				}
+				else {
+					$view_type = 'tatca';
+				}
+			}
+
+			if (isset($_POST['add-items'])) {
+				// Nếu người dùng bấm nút OK hộp thoại thêm mới chi tiêu
+				add($_POST);
+			}
+
+			if (isset($_POST['edit-items'])){
+				// Cấu hình sau khi đã có dữ liệu nút SỬA ITEMS
+			}
+
+		?>
+		<?php
+			$result_view = view("thangnay");
 			if(isset($result_view['total_money'])) $total_money = $result_view['total_money'] . 'k';
 			else $total_money = '0k';
 		
 			if(isset($result_view['total_money_today'])) $total_money_today = $result_view['total_money_today'] . 'k';
-			else $total_money_today = 0;
-			
+			else $total_money_today = '0k';
+
 			echo 
 				"<div id='view-total-money'>
 					<span class='cash-money'>Hôm nay</span>
@@ -74,13 +98,10 @@
 
 		<div id="box-setting">
 			<!--Hộp thoại thêm, sửa, xóa item-->
-			<span id="box-title">Settings</span>
+			<span id="box-title">Thêm mới chi tiêu</span>
 			<img class="add-input-item" src="images/icons/add-icon.png" alt="add"/>
-			<form action="">
-				<select name="" id="">
-					<option value="a">Hôm qua</option>
-					<option value="a" selected>Hôm nay</option>
-				</select>
+			<form action="" method="POST">
+				<input type="date" class="data-select" name="data-select">
 				<div class="warning">
 					<img src="images/icons/warning-icon.png" alt="warning"/>
 					<span><!--Nội dung thông báo--></span>
@@ -89,32 +110,34 @@
 					<!--Chứa các trường thêm items-->
 				</div>
 				<input class="huy" type="button" value="Hủy" name="huy"/>
-				<input class="ok" type="submit" value="Ok" name="ok"/>
+				<input class="ok" type="submit" value="Ok" name="add-items"/>
 			</form>
 		</div>
 
 		<div id="box-view">
-			<span class="title">Chọn theo ngày</span>
-			<div class="s-view">
-				<span><input type="radio" name="view" checked />Tất cả</span>
-				<span><input type="radio" name="view"/>Tuần này</span>
-				<span><input type="radio" name="view"/>Tháng này</span>
-			</div>
-			<div class="s-d-view">
-				<div class="tu-ngay">
-					<span class=""> <input type="radio" name="view"/>Từ ngày - đến ngày</span>
-					<input type="date" disabled/>
+			<form action="" method="POST" name="box-view">
+				<span class="title">Chọn theo ngày</span>
+				<div class="s-view">
+					<span><input type="radio" name="view" value="tatca" checked />Tất cả</span>
+					<span><input type="radio" name="view" value="tuannay"/>Tuần này</span>
+					<span><input type="radio" name="view" value="thangnay"/>Tháng này</span>
 				</div>
-				<img src="images/icons/arrow-icon.png" alt="arrow-icon" width="20px" />
-				<div class="den-ngay">
-					<span class="">Đến ngày</span>
-					<input type="date" disabled/>
+				<div class="s-d-view">
+					<div class="tu-ngay">
+						<span class=""> <input type="radio" name="view" value="date-to-date"/>Từ ngày - đến ngày</span>
+						<input type="date" disabled/>
+					</div>
+					<img src="images/icons/arrow-icon.png" alt="arrow-icon" width="20px" />
+					<div class="den-ngay">
+						<span class="">Đến ngày</span>
+						<input type="date" disabled/>
+					</div>
 				</div>
-			</div>
-			<div>
-				<input class="huy" type="button" value="Hủy" />
-				<input class="ok" type="submit" value="Ok" />
-			</div>
+				<div>
+					<input class="huy" type="button" value="Hủy" />
+					<input class="ok" type="submit" value="Ok" name="box-view"/>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

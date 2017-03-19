@@ -25,14 +25,14 @@ var validate = function (){
 	}
 	var inputItems = $('#input-items .input-item');
 	for(var inputItem of inputItems){
-		var moneyNumber = $(inputItem).children('input[name=input-money]').val();
-		var moneyContent = $(inputItem).children('input[name=input-content]').val();
+		var moneyNumber = $(inputItem).children('input.input-money').val();
+		var moneyContent = $(inputItem).children('input.input-content').val();
 		if(isNumber(moneyNumber) === false){
-			$($(inputItem).children('input[name=input-money]')).focus();
+			$($(inputItem).children('input.input-money')).focus();
 			return false;
 		}
 		if (emptyData(moneyNumber, moneyContent) === false) {
-			$($(inputItem).children('input[name=input-content]')).focus();
+			$($(inputItem).children('input.input-content')).focus();
 			return false;
 		}
 	}
@@ -71,9 +71,9 @@ var functions = {
 			var inputItem = 
 			`<div class="input-item"> 
 				<span class="serial">${this.countSTT}.</span>
-				<input type="text" name="input-money" value="${moneyNumber}"/>
+				<input class="input-money" type="text" name="${this.countSTT}-input-money" value="${moneyNumber}"/>
 				<span><img src="images/icons/arrow-icon.png" alt="arrow-icon"/></span>
-				<input type="text" name="input-content" value="${moneyContent}"/>
+				<input class="input-content" type="text" name="${this.countSTT}-input-content" value="${moneyContent}"/>
 				<img class="close" src="images/icons/close-icon.png" alt="close"/>
 			</div>`
 			$('#input-items').append(inputItem);
@@ -109,6 +109,21 @@ var functions = {
 				$('#input-items div.input-item').remove();
 			}
 			$('#box-setting .warning').hide()//Ẩn tất cả thông báo
+		},
+
+		dateSelect: function () {
+			// Người dùng chỉ có thể thiết lập Thêm mới chi tiêu cho thời 
+			// gian từ hôm nay trở về trước.
+			// Thêm ngày hôm nay cho 2 thuộc tính Max và Value của thành phần
+			// input date
+
+			var d = new Date();
+			var dd = d.getDate();
+			var mm = d.getMonth() + 1;// + 1 vì month = (0->11)
+			var yyyy = d.getFullYear();
+			var today = `${yyyy}-0${mm}-${dd}`;
+
+			$('#box-setting .data-select').attr({'max':today, 'value':today});
 		}
 	},
 
@@ -118,6 +133,7 @@ var functions = {
 			functions.boxSetting.deleteAllItems();
 			$('#box-setting .add-input-item').click();
 			$('#box-setting .input-item .close').hide();// Ẩn nut xóa item
+			functions.boxSetting.dateSelect();
 			box.showAndHidden('#box-setting');
 			return false;
 		});
