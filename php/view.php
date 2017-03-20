@@ -12,13 +12,14 @@ function connnect_database() {
 
 function view($view_by) {
 	$conn = connnect_database();
+	date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 	function converse_date($date, &$result) {
 		// Chuyển định dạng y-m-d - > d-m-Y
 		// Nếu là ngày hôm nay thay giá tri ngày bằng giá trị "Hôm nay"
 		// Nếu có giá trị  hôm nay, lưu tổng tiền vào array $result cho dễ truy
 		// xuất
-		date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 		$today = date('Y-m-d');
 		if ($date['date_content'] === $today){
 			$date['date_content'] = "Hôm nay";
@@ -37,7 +38,6 @@ function view($view_by) {
 		$result = array();
 		$total_money = 0;
 		$sql = Null;
-		date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 		if ($view_by === 'tuannay') {
 

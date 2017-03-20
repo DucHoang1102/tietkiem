@@ -1,6 +1,5 @@
 <?php
-	require ("php/view.php");
-	require ("php/add.php");
+	require ("php/controller.php");
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -14,31 +13,7 @@
 <body>
 	<div id="contains">
 		<?php
-			$view_type = 'tatca';
-			// Xác định xem người dùng thực hiện chức năng gì
-			if (isset($_POST['box-view'])){
-				// Nếu người dùng bấm OK hộp thoại chọn kiểu xem:
-				// tất cả, tuần này, tháng này,...
-				if (isset($_POST['view'])) {
-				$view_type = $_POST['view'];
-				}
-				else {
-					$view_type = 'tatca';
-				}
-			}
-
-			if (isset($_POST['add-items'])) {
-				// Nếu người dùng bấm nút OK hộp thoại thêm mới chi tiêu
-				add($_POST);
-			}
-
-			if (isset($_POST['edit-items'])){
-				// Cấu hình sau khi đã có dữ liệu nút SỬA ITEMS
-			}
-
-		?>
-		<?php
-			$result_view = view($view_type);
+			// Biến $result_view nằm trong php/controller.php
 			if(isset($result_view['total_money'])) $total_money = $result_view['total_money'] . 'k';
 			else $total_money = '0k';
 		
@@ -111,7 +86,7 @@
 					<!--Chứa các trường thêm items-->
 				</div>
 				<input class="huy" type="button" value="Hủy" name="huy"/>
-				<input class="ok" type="submit" value="Ok" name="add-items"/>
+				<input class="ok" type="submit" value="Ok" name="ok-add-items"/>
 			</form>
 		</div>
 
@@ -136,7 +111,7 @@
 				</div>
 				<div>
 					<input class="huy" type="button" value="Hủy" />
-					<input class="ok" type="submit" value="Ok" name="box-view"/>
+					<input class="ok" type="submit" value="Ok" name="ok-box-view"/>
 				</div>
 			</form>
 		</div>

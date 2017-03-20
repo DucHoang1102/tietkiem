@@ -1,6 +1,7 @@
 <?php
-	($abc = function () {
-		echo 123;
-	})();
-	$abc();
+	//$a = null;
+	function thuxem ($a = 100) {
+		echo $a;
+	}
+	thuxem();
 ?>
