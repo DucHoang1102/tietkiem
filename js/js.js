@@ -71,9 +71,9 @@ var functions = {
 			var inputItem = 
 			`<div class="input-item"> 
 				<span class="serial">${this.countSTT}.</span>
-				<input class="input-money" type="text" name="${this.countSTT}-input-money" value="${moneyNumber}"/>
+				<input class="input-money" type="text" name="${this.countSTT}-input-money" value="${moneyNumber}" maxlength="6"/>
 				<span><img src="images/icons/arrow-icon.png" alt="arrow-icon"/></span>
-				<input class="input-content" type="text" name="${this.countSTT}-input-content" value="${moneyContent}"/>
+				<input class="input-content" type="text" name="${this.countSTT}-input-content" value="${moneyContent}" maxlength="25"/>
 				<img class="close" src="images/icons/close-icon.png" alt="close"/>
 			</div>`
 			$('#input-items').append(inputItem);
@@ -123,7 +123,7 @@ var functions = {
 			var yyyy = d.getFullYear();
 			var today = `${yyyy}-0${mm}-${dd}`;
 
-			$('#box-setting .data-select').attr({'max':today, 'value':today});
+			$('#box-setting .date-select').attr({'max':today, 'value':today});
 		}
 	},
 

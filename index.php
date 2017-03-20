@@ -14,6 +14,7 @@
 <body>
 	<div id="contains">
 		<?php
+			$view_type = 'tatca';
 			// Xác định xem người dùng thực hiện chức năng gì
 			if (isset($_POST['box-view'])){
 				// Nếu người dùng bấm OK hộp thoại chọn kiểu xem:
@@ -37,7 +38,7 @@
 
 		?>
 		<?php
-			$result_view = view("thangnay");
+			$result_view = view($view_type);
 			if(isset($result_view['total_money'])) $total_money = $result_view['total_money'] . 'k';
 			else $total_money = '0k';
 		
@@ -50,7 +51,7 @@
 					<span class='cash-money-number' title='50000k'>$total_money_today</span>
 					<span class='card-money'>Tháng này</span>
 					<span class='card-money-number' title='50000k'>$total_money</span>
-				</div>'
+				</div>
 
 				<div id='history-deal'>";
 				if ($result_view === 'empty'){
@@ -101,7 +102,7 @@
 			<span id="box-title">Thêm mới chi tiêu</span>
 			<img class="add-input-item" src="images/icons/add-icon.png" alt="add"/>
 			<form action="" method="POST">
-				<input type="date" class="data-select" name="data-select">
+				<input type="date" class="date-select" name="data-select">
 				<div class="warning">
 					<img src="images/icons/warning-icon.png" alt="warning"/>
 					<span><!--Nội dung thông báo--></span>

@@ -37,12 +37,20 @@ function view($view_by) {
 		$result = array();
 		$total_money = 0;
 		$sql = Null;
+		date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 		if ($view_by === 'tuannay') {
 
 		}
 		elseif ($view_by === 'thangnay') {
-			# code...
+			// Trả về 1 chuỗi dạng 12016 - id bảng tháng này trong cơ sở dữ 
+			// liệu. Lấy tất cả các tháng trùng với tháng ngày hôm nay
+			$thismonth_id = date('n').date('Y');
+			$sql = "
+				SELECT *
+				FROM thoigian
+				WHERE thoigian.thismonth_id = $thismonth_id
+			";
 		}
 		elseif ($view_by === 'tungaydenngay') {
 			# code...
