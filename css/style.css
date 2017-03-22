@@ -99,7 +99,11 @@ body{
 .items div{
 	margin-top: 5px;
 }
-
+.items .money-total{
+	padding-top: 7px;
+	border-top: 2px solid #d1d1d1;
+	width: 150px;
+}
 .items .money-total .money-number{
 	color: #cc0000;
 }

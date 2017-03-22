@@ -116,7 +116,6 @@ var functions = {
 			// gian từ hôm nay trở về trước.
 			// Thêm ngày hôm nay cho 2 thuộc tính Max và Value của thành phần
 			// input date
-
 			var d = new Date();
 			var dd = d.getDate();
 			var mm = d.getMonth() + 1;// + 1 vì month = (0->11)

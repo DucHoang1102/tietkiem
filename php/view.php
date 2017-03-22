@@ -32,37 +32,46 @@ function view($view_by) {
 	}
 
 	function list_view($view_by, $conn){
-		// Lưu danh sách date cần view vào biến $result
-		// Cấu trúc dữ liệu kết quả trả về là mảng kết hợp
+		// Lưu danh sách date cần view vào biến $result - cấu trúc dữ liệu kết quả trả về là mảng kết hợp
 		// Có 4 kiểu: 1.Tất cả - 2.Tuần này - 3.Tháng này - 4.Từ ngày đến ngày
+		// Thay đổi câu lệnh SQL để đổi kiểu view
 		$result = array();
 		$total_money = 0;
-		$sql = Null;
+		$sql = "
+				SELECT *
+				FROM thoigian
+		"; // Default
 
 		if ($view_by === 'tuannay') {
-
+			// Xác định Thứ trong tuần của ngày hôm nay lọc trở lại đầu tuần (T2)
+			// $thu -  trả về 1 - 7 (Thứ 2 - Chủ nhật).
+			// id_thứ 2 <= date_id <= id_hôm nay
+			$thu = date('N') - 1;
+			$date_id_today = date('Y').date('m').date('d');
+			$date_id_2nd = $date_id_today - $thu;
+			$sql = "
+				SELECT *
+				FROM thoigian
+				WHERE date_id <= $date_id_today AND date_id >= $date_id_2nd
+			";
 		}
 		elseif ($view_by === 'thangnay') {
-			// Trả về 1 chuỗi dạng 12016 - id bảng tháng này trong cơ sở dữ 
-			// liệu. Lấy tất cả các tháng trùng với tháng ngày hôm nay
-			$thismonth_id = date('n').date('Y');
+			// Lọc theo những tháng có cùng tháng với ngày hôm nay
+			// Dựa vào cột $thismonth_id và bảng $thismonth để xác 
+			// định những tháng giống nhau
+			$thismonth_id = date('Y').date('m');
 			$sql = "
 				SELECT *
 				FROM thoigian
 				WHERE thoigian.thismonth_id = $thismonth_id
 			";
 		}
-		elseif ($view_by === 'tungaydenngay') {
-			# code...
-		}
-		else{
-			$sql = "
-				SELECT *
-				FROM thoigian
-			";
+		elseif ($view_by === 'date-to-date') {
+			# Từ ngày đến ngày
 		}
 
-		 $dates = $conn->query($sql);
+
+		$dates = $conn->query($sql);
 
 		if ($dates->num_rows > 0){
 			// Trường hợp có dư liệu trả về

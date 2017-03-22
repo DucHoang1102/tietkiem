@@ -9,12 +9,19 @@ require ("php/view.php");
 require ("php/add.php");
 
 $view_type = 'tatca'; // Kiểu hiển thị: tất cả, tuần này, tháng này,...
+$title_view_total_money = 'Tất cả';
 $result_view = Null; // Danh sách chứa items để hiển thị
 // Nếu người dùng bấm OK hộp thoại chọn kiểu xem:
 // tất cả, tuần này, tháng này,...
 if (isset($_POST['ok-box-view'])){
 
-	if (isset($_POST['view'])) $view_type = $_POST['view'];
+	if (isset($_POST['view']))
+	{
+		$view_type = $_POST['view'];
+		if ($view_type === 'thangnay') $title_view_total_money = 'Tháng này';
+		else if ($view_type === 'tuannay') $title_view_total_money = 'Tuần này';
+		else $view_type = 'tatca';
+	} 
 }
 
 // Nếu người dùng bấm nút OK hộp thoại thêm mới chi tiêu
@@ -27,5 +34,6 @@ if (isset($_POST['edit-items'])){
 
 }
 
+// HIỂN THỊ DỮ LIỆU RA TRANG CHỦ
 $result_view = view($view_type);
 ?>

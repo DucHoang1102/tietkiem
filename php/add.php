@@ -44,10 +44,10 @@ function add($_POST_ADD) {
 		// date_id
 
 		// Nếu chưa có thì tạo record - Lưu  ý bảng thời gian có chứa khóa ngoại
-		// từ 2 bảng thismonth và thisweek. Kiểm tra dữ liệu trong 2 bảng này trước
+		// từ bảng thismonth. Kiểm tra dữ liệu trong bảng này trước
 		// Sau cùng trả lại date_id và all_money(tổng tiền) trong csdl
 
-		$date_id = (INT)substr($date, 0,4).substr($date, 5,2).substr($date, 8, 2);
+		$date_id = substr($date, 0,4).substr($date, 5,2).substr($date, 8, 2);
 		$sql = "
 			SELECT date_id, all_moneys
 			FROM thoigian
@@ -69,18 +69,11 @@ function add($_POST_ADD) {
 		    */
 			$thismonth_id = (INT)substr($date, 0, 4).substr($date, 5, 2);
 			$thismonth_id = thismonth_table($thismonth_id, $conn);
-			
-			/* 
-			+. Cấu trúc $thisweek_id = 2 -> 8 (Thứ 2 -> CN). Vậy phải cộng thêm 1
-			vì date('N') trả về từ 1 - 7(Thứ 2 - CN). 
-			+. Bảng thisweek đã có sẵn dữ liệu vì vậy không phải kiểm tra hay tạo mới
-			*/
-			$thisweek_id = date('N', strtotime($date)) + 1;
-			$thisweek_id = thisweek_table ($thisweek_id);
+
 
 			$sql = "
-				INSERT INTO thoigian(date_id, date_content, all_moneys, thismonth_id, thisweek_id)
-				VALUES($date_id, \"$date\", '0', \"$thismonth_id\", \"$thisweek_id\");
+				INSERT INTO thoigian(date_id, date_content, all_moneys, thismonth_id)
+				VALUES($date_id, \"$date\", '0', \"$thismonth_id\");
 			";
 			$conn->query($sql);
 			if ($conn->error) {
@@ -122,12 +115,6 @@ function add($_POST_ADD) {
 		}
 
 		return $thismonth_id;
-	}
-
-	function thisweek_table ($thisweek_id) {
-		// Bảng này dữ liệu đã tạo sẵn lên không có chức năng check
-		// Tránh phức tạp vì dễ bung lỗi
-		return $thisweek_id;
 	}
  
 	// Tại bảng thêm chi tiêu (add item)

@@ -1,7 +1,4 @@
 <?php
-	//$a = null;
-	function thuxem ($a = 100) {
-		echo $a;
-	}
-	thuxem();
+	$date_id_today = (INT)(date('Y').date('m').date('d'));
+	var_dump($date_id_today);
 ?>

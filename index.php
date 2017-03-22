@@ -23,9 +23,9 @@
 			echo 
 				"<div id='view-total-money'>
 					<span class='cash-money'>Hôm nay</span>
-					<span class='cash-money-number' title='50000k'>$total_money_today</span>
-					<span class='card-money'>Tháng này</span>
-					<span class='card-money-number' title='50000k'>$total_money</span>
+					<span class='cash-money-number'>$total_money_today</span>
+					<span class='card-money'>$title_view_total_money</span>
+					<span class='card-money-number'>$total_money</span>
 				</div>
 
 				<div id='history-deal'>";
@@ -36,7 +36,7 @@
 					foreach ($result_view as $item_date) {
 						if ($item_date['date']){ 
 							$date_content = $item_date['date']['date_content'];
-							$money_total_in_date = $item_date['date']['all_moneys']; 
+							$money_total_in_date = $item_date['date']['all_moneys'].'k'; 
 							echo 
 								"<div class='items'>
 									<span class='date-time'>$date_content</span>
@@ -44,7 +44,7 @@
 
 							if (count($item_date['item']) > 0){
 								foreach ($item_date['item'] as $items) {
-									$money_number = $items['item_number'];
+									$money_number = $items['item_number'].'k';
 									$money_content = $items['item_content'];
 									echo 
 										"<div class='money-item'> 
