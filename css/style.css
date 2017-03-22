@@ -234,8 +234,8 @@ input.huy:hover, input.ok:hover{
 
 /*box-date-select*/
 #box-view{
-	display: none;
 	position: absolute;
+	display: none;
 	overflow: hidden;
 	bottom: 45px;
 	width: 100%;
@@ -276,6 +276,14 @@ input.huy:hover, input.ok:hover{
 #box-view .s-d-view img{
 	position: absolute;
 	left: 170px; top: 25px;
+}
+#box-view .warning{
+	display: none;
+	position: absolute;
+	top: 155px;
+}
+#box-view .warning span {
+	color: red;
 }
 #box-view .huy, #box-view .ok{
 	position: relative;

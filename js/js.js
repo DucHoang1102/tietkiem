@@ -1,44 +1,65 @@
 $(document).ready(function(){
 	// js phần mềm thu chi
 
-var validate = function (){
-	function warning(box, content, swit){
-		var warningBox = $(box).find('.warning');
-		if(swit === true){
-			warningBox.find('span').text(content);
-			warningBox.show(100);
+var validate = {
+	boxSetting: function (){
+		function warning(box, content, swit){
+			var warningBox = $(box).find('.warning');
+			if(swit === true){
+				warningBox.find('span').text(content);
+				warningBox.show(100);
+			}
+			return;
 		}
-		return;
-	}
-	function emptyData (moneyNumber, moneyContent) {
-		if (moneyNumber === "" || moneyContent === ""){
-			warning('#box-setting', 'Nhập nội dung tiêu tiền!', true);
+		function emptyData (moneyNumber, moneyContent) {
+			if (moneyNumber === "" || moneyContent === ""){
+				warning('#box-setting', 'Nhập nội dung tiêu tiền!', true);
+				return false;
+			}
+		}
+		function isNumber(moneyNumber) {
+			var moneyNumber = parseInt(moneyNumber);
+			if (isNaN(moneyNumber)){
+				warning('#box-setting', 'Vui lòng điền số tiền!', true);
+				return false;
+			}
+		}
+		var inputItems = $('#input-items .input-item');
+		for(var inputItem of inputItems){
+			var moneyNumber = $(inputItem).children('input.input-money').val();
+			var moneyContent = $(inputItem).children('input.input-content').val();
+			if(isNumber(moneyNumber) === false){
+				$($(inputItem).children('input.input-money')).focus();
+				return false;
+			}
+			if (emptyData(moneyNumber, moneyContent) === false) {
+				$($(inputItem).children('input.input-content')).focus();
+				return false;
+			}
+		}
+		return true;
+	},
+	boxView: function () {
+		// Validate hộp thoại #boxView phần date-to-date (Từ ngày đến ngày)
+		// "Từ ngày" luôn luôn nhỏ hơn "Đến ngày"
+		var dateA = $('#box-view .date-A').val();
+		var dateB = $('#box-view .date-B').val();
+		var dateToDate_checked = $('#box-view input[name=view]:checked').val();
+		
+		if ((dateToDate_checked == "date-to-date") && (dateA == "")){
+			// Trường hợp người dùng để trống ô .dateA (Từ ngày)
+			$('#box-view .warning').show(100);
 			return false;
 		}
-	}
-	function isNumber(moneyNumber) {
-		var moneyNumber = parseInt(moneyNumber);
-		if (isNaN(moneyNumber)){
-			warning('#box-setting', 'Vui lòng điền số tiền!', true);
+		if ((dateToDate_checked == "date-to-date") && (dateA > dateB)) {
+			// Trường hợp sai: "Từ ngày" lớn hơn "Đến ngày" && nút tick radio
+			// tại "Từ ngày - đến ngày"
+			$('#box-view .warning').show(100);
 			return false;
 		}
+		return true;
 	}
-	var inputItems = $('#input-items .input-item');
-	for(var inputItem of inputItems){
-		var moneyNumber = $(inputItem).children('input.input-money').val();
-		var moneyContent = $(inputItem).children('input.input-content').val();
-		if(isNumber(moneyNumber) === false){
-			$($(inputItem).children('input.input-money')).focus();
-			return false;
-		}
-		if (emptyData(moneyNumber, moneyContent) === false) {
-			$($(inputItem).children('input.input-content')).focus();
-			return false;
-		}
-	}
-	return true;
-}
-
+};
 var box = {
 	showAndHidden: function ($box) {
 		// Định nghĩa hiển thị và ẩn box
@@ -111,7 +132,7 @@ var functions = {
 			$('#box-setting .warning').hide()//Ẩn tất cả thông báo
 		},
 
-		dateSelect: function () {
+		today: function () {
 			// Người dùng chỉ có thể thiết lập Thêm mới chi tiêu cho thời 
 			// gian từ hôm nay trở về trước.
 			// Thêm ngày hôm nay cho 2 thuộc tính Max và Value của thành phần
@@ -121,8 +142,7 @@ var functions = {
 			var mm = d.getMonth() + 1;// + 1 vì month = (0->11)
 			var yyyy = d.getFullYear();
 			var today = `${yyyy}-0${mm}-${dd}`;
-
-			$('#box-setting .date-select').attr({'max':today, 'value':today});
+			return today;
 		}
 	},
 
@@ -132,7 +152,10 @@ var functions = {
 			functions.boxSetting.deleteAllItems();
 			$('#box-setting .add-input-item').click();
 			$('#box-setting .input-item .close').hide();// Ẩn nut xóa item
-			functions.boxSetting.dateSelect();
+
+			var today = functions.boxSetting.today();
+			$('#box-setting .date-select').attr({'max':today, 'value':today});
+
 			box.showAndHidden('#box-setting');
 			return false;
 		});
@@ -159,6 +182,9 @@ var functions = {
 	},
 
 	viewSelect: function () {
+		// Hộp thoại tùy chọn hiển thị
+		// Nếu tick các tùy chọn khác, input date chọn ngày sẽ bị disabled
+		// ngược lại nếu tick "Từ ngày - đến ngày" input date sẽ remove disabled
 		var inputDisabled = $('.s-d-view input[type=date]');
 		$('.s-view span input').click(function () {
 			if(!$(inputDisabled).prop('disabled')){
@@ -170,6 +196,12 @@ var functions = {
 				$(inputDisabled).removeAttr('disabled');
 			}
 		});
+
+		// Thiết lập date-to-date, chỉ được phép tìm kiếm: ngày hôm nay trở về
+		// trước. Max, value của input date mặc định là ngày hôm nay
+		var today = functions.boxSetting.today();
+		$('#box-view .date-A').attr({'max':today}); // Từ ngày
+		$('#box-view .date-B').attr({'max':today, 'value':today}); // Đến ngày
 
 		$('#functions .view-select').click(function () {
 			box.showAndHidden('#box-view');
@@ -183,7 +215,10 @@ var functions = {
 		this.boxSetting.clickAddInputItem();
 		this.boxSetting.clickDeleteItem();
 		$('#box-setting .ok').click(function () {
-			return validate();
+			return validate.boxSetting();
+		});
+		$('#box-view .ok').click(function () {
+			return validate.boxView();
 		});
 	},
 }//end functions{}

@@ -92,7 +92,7 @@
 
 		<div id="box-view">
 			<form action="" method="POST" name="box-view">
-				<span class="title">Chọn theo ngày</span>
+				<span class="title">Tùy chọn hiển thị</span>
 				<div class="s-view">
 					<span><input type="radio" name="view" value="tatca" checked />Tất cả</span>
 					<span><input type="radio" name="view" value="tuannay"/>Tuần này</span>
@@ -100,14 +100,18 @@
 				</div>
 				<div class="s-d-view">
 					<div class="tu-ngay">
-						<span class=""> <input type="radio" name="view" value="date-to-date"/>Từ ngày - đến ngày</span>
-						<input type="date" disabled/>
+						<span class="date-to-date"> <input type="radio" name="view" value="date-to-date"/>Từ ngày - đến ngày</span>
+						<input class="date-A" type="date" disabled name="date-A" />
 					</div>
 					<img src="images/icons/arrow-icon.png" alt="arrow-icon" width="20px" />
 					<div class="den-ngay">
 						<span class="">Đến ngày</span>
-						<input type="date" disabled/>
+						<input class="date-B" type="date" disabled name="date-B" />
 					</div>
+				</div>
+				<div class="warning">
+					<img src="images/icons/warning-icon.png" alt="warning"/>
+					<span>"Từ ngày" <b>></b> "Đến Ngày"</span>
 				</div>
 				<div>
 					<input class="huy" type="button" value="Hủy" />

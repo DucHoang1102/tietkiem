@@ -67,7 +67,22 @@ function view($view_by) {
 			";
 		}
 		elseif ($view_by === 'date-to-date') {
-			# Từ ngày đến ngày
+			// Radio tick chọn Từ ngày đến ngày lọc và hiển thị dữ liệu những
+			// ngày trong khoảng mà người dùng chọn
+			$date_id_A = str_replace('-', '', $_POST['date-A']); 
+			$date_id_B = str_replace('-', '', $_POST['date-B']);
+			
+			if ($date_id_A <= $date_id_B ){
+				// Trường hợp này không cần thiết - nhưng viết cho chắc ăn
+				$sql = "
+					SELECT *
+					FROM thoigian
+					WHERE $date_id_A <= date_id AND date_id <= $date_id_B
+				";
+			}
+			else{
+				return 'empty';	
+			}
 		}
 
 

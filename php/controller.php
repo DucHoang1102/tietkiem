@@ -20,6 +20,9 @@ if (isset($_POST['ok-box-view'])){
 		$view_type = $_POST['view'];
 		if ($view_type === 'thangnay') $title_view_total_money = 'Tháng này';
 		else if ($view_type === 'tuannay') $title_view_total_money = 'Tuần này';
+		else if ($view_type === 'date-to-date') {
+			$title_view_total_money = 'Ngày đến ngày';
+		}
 		else $view_type = 'tatca';
 	} 
 }
