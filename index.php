@@ -77,7 +77,7 @@
 			<span id="box-title">Thêm mới chi tiêu</span>
 			<img class="add-input-item" src="images/icons/add-icon.png" alt="add"/>
 			<form action="" method="POST">
-				<input type="date" class="date-select" name="data-select">
+				<input type="date" class="date-select" name="date-select">
 				<div class="warning">
 					<img src="images/icons/warning-icon.png" alt="warning"/>
 					<span><!--Nội dung thông báo--></span>

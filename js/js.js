@@ -61,8 +61,8 @@ var validate = {
 	}
 };
 var box = {
-	showAndHidden: function ($box) {
-		// Định nghĩa hiển thị và ẩn box
+	showAndHidden: function ($box) { 
+		// Định nghĩa hiển thị và ẩn box chung
 		// Tạo nền đen cho box
 		var blackBackground = $('<div id="black-background"></div>');
 		blackBackground.insertBefore($box);
@@ -70,7 +70,7 @@ var box = {
 		// Hiển thị hộp thoại
 		$($box).show(300);
 
-		// Kích hoạt nút hủy làm ẩn hộp thoại
+		// Kích hoạt nút hủy làm ẩn hộp thoại chung
 		$('input.huy').click(function () {
 			$($box).hide();
 			$('#black-background').remove();
@@ -106,6 +106,7 @@ var functions = {
 			$this = this;
 			$('#box-setting .add-input-item').click(function () {
 				$this.inputItem();
+				return false;
 			});
 		},
 
@@ -153,8 +154,15 @@ var functions = {
 			$('#box-setting .add-input-item').click();
 			$('#box-setting .input-item .close').hide();// Ẩn nut xóa item
 
+			// Thiết lập thời gian ngày hôm nay
 			var today = functions.boxSetting.today();
-			$('#box-setting .date-select').attr({'max':today, 'value':today});
+			$('#box-setting .date-select').attr({'max':today, 'min':0});
+			$('#box-setting .date-select').val(today);
+
+			// Sửa title hộp thoại
+			$('#box-setting #box-title').text('Thêm mới chi tiêu');
+			// Sửa name của input submit
+			$('#box-setting input.ok').attr({'name':'ok-add-items'});
 
 			box.showAndHidden('#box-setting');
 			return false;
@@ -167,15 +175,33 @@ var functions = {
 			// Khi người dùng click nút sửa trong từng ngày cụ thể	
 			// Lấy dữ liệu của ngày đó nắp vào các input để cho 
 			// người dùng sửa
+			// Chức năng sửa là cập nhật lại toàn bộ nội dung trong database
 			functions.boxSetting.deleteAllItems();
 
-			var moneyItems = $(this).parent().children('.money-item');
+			var itemEdit = $(this).parent();
+			var date = itemEdit.find('.date-time').text();
+			if (date === "Hôm nay"){
+				var date = functions.boxSetting.today();
+			}
+			else{
+				var date = date.slice(6,11) + '-' + date.slice(3,5) + '-' + date.slice(0,2);
+			} 
+			var moneyItems = itemEdit.children('.money-item');
+
 			for(var item of moneyItems){
+				// Lắp item vào hộp thoại
 				var moneyNumber = $(item ).find('.money-number').text();
 				var moneyContent = $(item ).find('.money-content').text();
 				functions.boxSetting.inputItem(moneyNumber, moneyContent);
 			}
 
+			// Sửa title hộp thoại
+			$('#box-setting #box-title').text('Sửa chi tiêu');
+			// Sửa name của input subnmit 
+			$('#box-setting input.ok').attr({'name':'edit-items'});
+			// Lắp ngày vào hộp thoạis
+			$('#box-setting input[type=date]').attr({'max': date, 'min': date});
+			$('#box-setting input[type=date]').val(date);
 			box.showAndHidden('#box-setting');
 			return false;
 		});
@@ -189,11 +215,13 @@ var functions = {
 		$('.s-view span input').click(function () {
 			if(!$(inputDisabled).prop('disabled')){
 				$(inputDisabled).attr('disabled', 'disabled');
+				return false;
 			}
 		});
 		$('.s-d-view input[type=radio]').click(function () {
 			if($(inputDisabled).prop('disabled')){
 				$(inputDisabled).removeAttr('disabled');
+				return false;
 			}
 		});
 
@@ -205,6 +233,7 @@ var functions = {
 
 		$('#functions .view-select').click(function () {
 			box.showAndHidden('#box-view');
+			return false;
 		});
 	},
 

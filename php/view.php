@@ -17,8 +17,8 @@ function view($view_by) {
 	function converse_date($date, &$result) {
 		// Chuyển định dạng y-m-d - > d-m-Y
 		// Nếu là ngày hôm nay thay giá tri ngày bằng giá trị "Hôm nay"
-		// Nếu có giá trị  hôm nay, lưu tổng tiền vào array $result cho dễ truy
-		// xuất
+		// Nếu có giá trị  hôm nay, lưu tổng tiền hôm nayvào array $result cho 
+		// dễ truy xuất
 
 		$today = date('Y-m-d');
 		if ($date['date_content'] === $today){

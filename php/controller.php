@@ -7,6 +7,7 @@
 
 require ("php/view.php");
 require ("php/add.php");
+require ("php/edit.php");
 
 $view_type = 'tatca'; // Kiểu hiển thị: tất cả, tuần này, tháng này,...
 $title_view_total_money = 'Tất cả';
@@ -34,7 +35,7 @@ if (isset($_POST['ok-add-items'])) {
 
 // CẤU HÌNH SAU KHI ĐÃ CÓ CHƯC NĂNG SỬA ITEMS
 if (isset($_POST['edit-items'])){
-
+	edit($_POST);
 }
 
 // HIỂN THỊ DỮ LIỆU RA TRANG CHỦ

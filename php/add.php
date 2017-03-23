@@ -23,7 +23,7 @@ function add($_POST_ADD) {
 		$date_id = $thoigian["date_id"];
 
 		foreach ($items as $value) {
-			$item_number = $value[0];
+			$item_number = (INT)$value[0];
 			$item_content = $value[1];
 			$sql_items = "
 				INSERT INTO items(item_number, item_content, date_id)
@@ -122,7 +122,7 @@ function add($_POST_ADD) {
 	// <input name = "1-input-money"/> - <input name = "1-input-content"/>
 	//<input  name = "2-input-money"/> - <input name = "2-input-content"/>
 	$i = 1;
-	$date = $_POST_ADD['data-select'];
+	$date = $_POST_ADD['date-select'];
 	$items = array();
 	$total_money = 0;
 
@@ -141,7 +141,9 @@ function add($_POST_ADD) {
 		};
 		$i++;
 	}
-	items_table($date, $items, $total_money, $conn);
+	if(count($items) > 0){
+		items_table($date, $items, $total_money, $conn);
+	}
 
 	$conn->close();
 }
